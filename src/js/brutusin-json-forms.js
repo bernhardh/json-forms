@@ -467,10 +467,12 @@ if (typeof brutusin === "undefined") {
             if (s.hasOwnProperty("properties")) {
                 propNum = s.properties.length;
                 for (var prop in s.properties) {
+                    var propId = id + "." + prop,
+                        curSchema = getSchema(propId);
                     var tr = document.createElement("tr");
+                    
                     var td1 = document.createElement("td");
                     td1.className = "prop-name";
-                    var propId = id + "." + prop;
                     var td2 = document.createElement("td");
                     td2.className = "prop-value";
                     appendChild(tbody, tr, s);
