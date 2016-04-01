@@ -171,19 +171,20 @@ if (typeof brutusin === "undefined") {
                     appendChild(option, textNode, s);
                     appendChild(input, option, s);
                 }
-                var selectedIndex = 0;
-                for (var i = 0; i < s.enum.length; i++) {
+                var selectedIndex = 0,
+                    isArray = s.enum.constructor.toString().indexOf("Array") != -1;
+                var index = 0;
+                for(var key in s.enum) {
                     var option = document.createElement("option");
-                    var textNode = document.createTextNode(s.enum[i]);
-                    option.value = s.enum[i];
+                    var textNode = document.createTextNode(s.enum[isArray ? index : key]);
+                    option.value = isArray ? s.enum[index] : key;
                     appendChild(option, textNode, s);
                     appendChild(input, option, s);
-                    if (value && s.enum[i] === value) {
-                        selectedIndex = i;
-                        if (!s.required) {
-                            selectedIndex++;
-                        }
+
+                    if (value && option.value === value) {
+                        selectedIndex = index;
                     }
+                    index++;
                 }
                 input.selectedIndex = selectedIndex;
             } else {
@@ -470,7 +471,7 @@ if (typeof brutusin === "undefined") {
                     var propId = id + "." + prop,
                         curSchema = getSchema(propId);
                     var tr = document.createElement("tr");
-                    
+                    if(curSchema.className) tr.class
                     var td1 = document.createElement("td");
                     td1.className = "prop-name";
                     var td2 = document.createElement("td");
